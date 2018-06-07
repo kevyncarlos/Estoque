@@ -1,0 +1,37 @@
+{
+  "name": "App",
+  "version": "1.0.0",
+  "description": "Controle de estoque desenvolvido para desafio do IFG - Campus Uruaçu",
+  "main": "app.js",
+  "repository": "https://github.com/kevyncarlos/Estoque",
+  "author": "ProDev",
+  "license": "MIT",
+  "dependencies": {
+    "alertifyjs": "^1.11.1",
+    "animate.css": "^3.6.1",
+    "bootstrap": "^4.1.1",
+    "bootstrap-maxlength": "^1.6.0",
+    "datatables.net-bs4": "^1.10.16",
+    "datatables.net-responsive-bs4": "^2.2.1",
+    "font-awesome": "^4.7.0",
+    "highcharts": "^6.1.0",
+    "highcharts-3d": "^0.1.7",
+    "hover.css": "^2.3.1",
+    "jquery": "^3.3.1",
+    "jquery-mask-plugin": "^1.14.15",
+    "jquery-validation": "^1.17.0",
+    "jquery-validation-unobtrusive": "^3.2.10",
+    "pnotify": "3.2.1",
+    "popper.js": "^1.14.3",
+    "select2": "^4.0.6-rc.1",
+    "select2-bootstrap-theme": "^0.1.0-beta.10"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0"
+  }
+}
