@@ -11,9 +11,6 @@ window.PNotify = require('pnotify');
 window.alertify = require('alertifyjs');
 
 require('bootstrap');
-
-require('./AlertiFyFactory');
-
 require('datatables.net-bs4');
 require('datatables.net-buttons-bs4');
 require('datatables.net-buttons/js/buttons.html5');
@@ -26,10 +23,7 @@ require('select2');
 require('jquery-validation');
 require('jquery-contextmenu');
 require('orgchart');
+require('./AlertiFyFactory');
 require('./plugins/dataTable.datetime-moment');
-
-/*Extensões personalizadas para o jquery*/
-
 require('./CustomDefaultPlugins');
-
 require('./custom');

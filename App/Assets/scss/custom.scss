@@ -390,6 +390,273 @@ select[readonly] {
     touch-action: none;
 }
 
-.dropzone .dz-preview .dz-error-message {
-    top: 150px !important;
+//Notifications
+$root-font-size: 10;
+
+@mixin font-size($size: 14) {
+    font-size: ($size / $root-font-size) + rem;
+}
+
+@mixin line-height($size: 14) {
+    line-height: ($size / $root-font-size) + rem;
+}
+
+@mixin placeholder-color($color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+}
+
+// =============================================================================
+// COLORS
+// =============================================================================
+$color-font-default: #777;
+
+$color-default: #ebebeb;
+$color-default-inverse: #777;
+
+$color-muted: #999;
+
+$color-primary: #CCC;
+$color-primary-inverse: #FFF;
+
+$color-success: #47a447;
+$color-success-inverse: #FFF;
+
+$color-warning: #ed9c28;
+$color-warning-inverse: #FFF;
+
+$color-danger: #d2322d;
+$color-danger-inverse: #FFF;
+
+$color-info: #5bc0de;
+$color-info-inverse: #FFF;
+
+$color-secondary: #E36159;
+$color-secondary-inverse: #FFF;
+
+$color-tertiary: #2BAAB1;
+$color-tertiary-inverse: #FFF;
+
+$color-quaternary: #734BA9;
+$color-quaternary-inverse: #FFF;
+
+$color-dark: #171717;
+$color-dark-inverse: #FFF;
+
+$body-color: #ecedf0;
+$sidebar-color: #33363F;
+
+$color-black: #333;
+
+// Colors list
+$colors-list: (primary $color-primary $color-primary-inverse) (secondary $color-secondary $color-secondary-inverse) (tertiary $color-tertiary $color-tertiary-inverse) (quaternary $color-quaternary $color-quaternary-inverse) (success $color-success $color-success-inverse) (warning $color-warning $color-warning-inverse) (danger $color-danger $color-danger-inverse) (info $color-info $color-info-inverse) (dark $color-dark $color-dark-inverse);
+
+// States list
+$states: (primary $color-primary $color-primary-inverse) (success $color-success $color-success-inverse) (warning $color-warning $color-warning-inverse) (danger $color-danger $color-danger-inverse) (info $color-info $color-info-inverse) (dark $color-dark $color-dark-inverse);
+
+/* Notifications */
+.notifications {
+    display: inline-block;
+    list-style: none;
+    margin: 4px -10px 0 0;
+    padding: 0;
+    vertical-align: middle;
+
+    & > li {
+        float: left;
+        margin: 0 10px 0 0;
+        position: relative;
+
+        .notification-icon {
+            background: #FFF;
+            border-radius: 50%;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            height: 30px;
+            position: relative;
+            width: 30px;
+            text-align: center;
+
+            &.dropdown-toggle {
+                &:after {
+                    content: none;
+                }
+            }
+
+            i {
+                color: #777;
+                line-height: 30px;
+                vertical-align: middle;
+
+                &.fa-tasks {
+                    line-height: 32px;
+                }
+            }
+
+            .badge {
+                background: #D2312D;
+                color: #FFF;
+                font-size: 10px;
+                font-weight: normal;
+                height: 16px;
+                padding: 3px 5px 3px 5px;
+                position: absolute;
+                right: -8px;
+                top: -3px;
+                border-radius: 100%;
+            }
+        }
+
+        & > a {
+            border: none;
+            display: inline-block;
+        }
+    }
+
+    .notification-menu {
+        border: none;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+
+        @media only screen and (min-width: 768px) {
+            left: auto !important;
+        }
+
+        margin: 10px 0 0 0;
+        padding: 0;
+        right: -5px;
+        width: 245px;
+
+        &.large {
+            width: 325px;
+        }
+
+        .notification-title {
+            background: $color-primary;
+            border-radius: 3px 3px 0 0;
+            color: #FFF;
+            font-size: 0.7rem;
+            @include line-height(11 + 4);
+            padding: 8px 6px 8px 12px;
+            text-transform: uppercase;
+
+            .badge {
+                font-size: 0.65rem;
+                font-weight: 200;
+                line-height: 14px;
+                margin-left: 10px;
+                margin-top: 2px;
+                min-width: 35px;
+            }
+
+            .badge-default {
+                background: #006697;
+                color: #FFF;
+            }
+        }
+
+        .content {
+            padding: 12px;
+        }
+
+        hr {
+            background: #E6E6E6;
+            height: 1px;
+            margin: 12px 0;
+        }
+
+        .view-more {
+            color: #ACACAC;
+            font-size: 0.7rem;
+            @include line-height(11);
+            text-transform: uppercase;
+        }
+    }
+}
+
+// NOTIFICATION MENU - PIN
+// -----------------------------------------------------------------------------
+/* notification menu - pin */
+.notifications .notification-menu,
+.notifications .notification-icon {
+    &:before {
+        border: {
+            bottom: 6px solid 5px;
+            left: 6px solid transparent;
+            right: 6px solid transparent;
+        }
+
+        content: '';
+        height: 0;
+        margin-right: -( 6px / 2);
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+}
+
+.notifications .notification-menu:before {
+    bottom: 100%;
+    right: 16px;
+}
+
+.notifications .notification-icon:before {
+    display: none;
+    right: 11px;
+    top: 35px;
+    z-index: 9999;
+}
+
+// BASE
+// -----------------------------------------------------------------------------
+/* Notification */
+.ui-pnotify {
+    right: 15px;
+    top: 15px;
+
+    .notification {
+        border-radius: 5px;
+        box-shadow: none;
+        padding: 15px 15px 15px 75px;
+
+        .ui-pnotify-icon {
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 75px;
+            text-align: center;
+
+            & > span {
+                border: 2px solid #FFF;
+                border-radius: 50%;
+                display: inline-block;
+                float: none;
+                font-size: 35px;
+                height: 50px;
+                line-height: 48px;
+                margin: 8px 0 0;
+                padding: 0;
+                width: 50px;
+                text-align: center;
+            }
+        }
+
+        .ui-pnotify-title {
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .ui-pnotify-text {
+            font-size: 12px;
+            line-height: 1.3em;
+        }
+    }
 }

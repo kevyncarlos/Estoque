@@ -1,4 +1,6 @@
 ﻿/* Add here all your JS customizations */
+PNotify.prototype.options.styling = "bootstrap3";
+
 window.FuncoesIniciais = function () {
     // Tooltip and Popover
     (function ($) {
