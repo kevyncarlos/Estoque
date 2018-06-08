@@ -41,7 +41,7 @@
     "jquery.maskedinput": "^1.4.1",
     "moment": "^2.20.1",
     "orgchart": "^2.1.1",
-    "pnotify": "^3.2.1",
+    "pnotify": "^4.0.0-alpha.4",
     "popper.js": "^1.12.9",
     "select2": "^4.0.6-rc.1",
     "select2-bootstrap-theme": "0.1.0-beta.10",

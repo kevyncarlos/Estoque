@@ -7,7 +7,9 @@ require('highcharts/highcharts-3d')(Highcharts);
 
 window.moment = require('moment');
 window._dtPtBr = require('./plugins/dataTable.pt-br');
-window.PNotify = require('pnotify');
+window.PNotify = require('pnotify/dist/umd/PNotify');
+require('pnotify/dist/umd/PNotifyButtons')
+require('pnotify/dist/umd/PNotifyMobile')
 window.alertify = require('alertifyjs');
 
 require('bootstrap');

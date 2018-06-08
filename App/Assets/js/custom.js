@@ -1,7 +1,36 @@
-﻿/* Add here all your JS customizations */
-PNotify.prototype.options.styling = "bootstrap3";
+﻿PNotify.defaults.styling = "bootstrap4";
+PNotify.defaults.icons = "fontawesome4";
 
 window.FuncoesIniciais = function () {
+    // Bootstrap Datepicker
+    if (typeof ($.fn.datepicker) != 'undefined') {
+        $.fn.bootstrapDP = $.fn.datepicker.noConflict();
+    }
+
+    
+
+    $(".datetime").datetimepicker({
+        locale: "pt-br"
+    });
+
+    $(".time").datetimepicker({
+        locale: "pt-br",
+        format: 'LT'
+    });
+
+    $(".date").datetimepicker({
+        locale: "pt-br",
+        format: 'L'
+    });
+
+    $(".icon-menu").each(function () {
+        var a = $(this).find("a").addClass("hvr-grow");
+    });
+
+    $("select[readonly]").attr("tabindex", "-1").removeClass("select2");
+    /**
+    * Chamada dos plugins com data- tags
+    */
     // Tooltip and Popover
     (function ($) {
         $('[data-toggle="tooltip"]').tooltip();
@@ -14,11 +43,6 @@ window.FuncoesIniciais = function () {
         $(this).parents('.nav-pills').find('.active').removeClass('active');
         $(this).addClass('active').parent().addClass('active');
     });
-
-    // Bootstrap Datepicker
-    if (typeof ($.fn.datepicker) != 'undefined') {
-        $.fn.bootstrapDP = $.fn.datepicker.noConflict();
-    }
 
     if ($('[data-toggle="checkbox"]').get(0)) {
         var container = $('[data-toggle="checkbox"]');
@@ -49,29 +73,6 @@ window.FuncoesIniciais = function () {
             }
         });
     }
-
-    $(".datetime").datetimepicker({
-        locale: "pt-br"
-    });
-
-    $(".time").datetimepicker({
-        locale: "pt-br",
-        format: 'LT'
-    });
-
-    $(".date").datetimepicker({
-        locale: "pt-br",
-        format: 'L'
-    });
-
-    $(".icon-menu").each(function () {
-        var a = $(this).find("a").addClass("hvr-grow");
-    });
-
-    $("select[readonly]").attr("tabindex", "-1").removeClass("select2");
-    /**
-    * Chamada dos plugins com data- tags
-    */
 
     $('[data-plugin-maxlength]').each(function () {
 
