@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using App.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
