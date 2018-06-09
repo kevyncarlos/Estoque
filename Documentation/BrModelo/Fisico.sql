@@ -3,20 +3,43 @@
 
 
 
-CREATE TABLE UsuarioPermissoes (
-UsuarioPermissaoId INTEGER PRIMARY KEY,
-PermissaoId INTEGER,
-TipoUsuarioId INTEGER
-)
-
 CREATE TABLE Permissoes (
 PermissaoId INTEGER PRIMARY KEY,
 Permissao VARCHAR(50),
 Ativo INTEGER
 )
 
+CREATE TABLE Empresas (
+EmpresaId INTEGER PRIMARY KEY,
+Empresa VARCHAR(100),
+Cidade VARCHAR(50),
+Descricao VARCHAR(200),
+Ativo VARCHAR(10)
+)
+
+CREATE TABLE ProdutosOrdens (
+ProdutoOrdemId INTEGER PRIMARY KEY,
+OrdemServicoId INTEGER,
+ProdutoId INTEGER,
+Motivo VARCHAR(150),
+DataHora DATETIME
+)
+
+CREATE TABLE UsuarioPermissoes (
+UsuarioPermissaoId INTEGER PRIMARY KEY,
+PermissaoId INTEGER,
+TipoUsuarioId INTEGER,
+FOREIGN KEY(PermissaoId) REFERENCES Permissoes (PermissaoId)
+)
+
 CREATE TABLE TipoUsuarios (
 TipoUsuarioId INTEGER PRIMARY KEY,
+Tipo VARCHAR(50),
+Ativo INTEGER
+)
+
+CREATE TABLE TipoOrdemServicos (
+TipoOrdemServicoId INTEGER PRIMARY KEY,
 Tipo VARCHAR(50),
 Ativo INTEGER
 )
@@ -32,23 +55,8 @@ Email VARCHAR(50),
 Ativo INTEGER,
 UltimoAcesso DATETIME,
 DataCad DATETIME,
-FOREIGN KEY(TipoUsuarioId) REFERENCES TipoUsuarios (TipoUsuarioId)
-)
-
-CREATE TABLE OrdemServicos (
-OrdemServicoId INTEGER PRIMARY KEY,
-TipoOrdemServicoId INTEGER,
-UsuarioId INTEGER,
-Descricao VARCHAR(250),
-Cliente VARCHAR(150),
-Status INTEGER,
-FOREIGN KEY(UsuarioId) REFERENCES Usuarios (UsuarioId)
-)
-
-CREATE TABLE TipoOrdemServicos (
-TipoOrdemServicoId INTEGER PRIMARY KEY,
-Tipo VARCHAR(50),
-Atributo1 INTEGER
+FOREIGN KEY(TipoUsuarioId) REFERENCES TipoUsuarios (TipoUsuarioId),
+FOREIGN KEY(EmpresaId) REFERENCES Empresas (EmpresaId)
 )
 
 CREATE TABLE LogOrdens (
@@ -56,16 +64,17 @@ LogOrdemId INTEGER PRIMARY KEY,
 OrdemServicoId INTEGER,
 Data DATETIME,
 Descricao VARCHAR(150),
-StatusOrdem INTEGER,
-FOREIGN KEY(OrdemServicoId) REFERENCES OrdemServicos (OrdemServicoId)
+StatusOrdem INTEGER
 )
 
-CREATE TABLE Empresas (
-EmpresaId INTEGER PRIMARY KEY,
-Empresa VARCHAR(100),
-Cidade VARCHAR(50),
-Descricao VARCHAR(200),
-Ativo VARCHAR(10)
+CREATE TABLE CompraProdutos (
+CompraProdutoId INTEGER PRIMARY KEY,
+CompraId INTEGER,
+ProdutoId INTEGER,
+QtdProduto INTEGER,
+Metro DECIMAL(10),
+Unidade INTEGER,
+Valor DECIMAL(10)
 )
 
 CREATE TABLE Compras (
@@ -77,17 +86,6 @@ Total DECIMAL(10),
 FOREIGN KEY(EmpresaId) REFERENCES Empresas (EmpresaId)
 )
 
-CREATE TABLE CompraProdutos (
-CompraProdutoId INTEGER PRIMARY KEY,
-CompraId INTEGER,
-ProdutoId INTEGER,
-QtdProduto INTEGER,
-Metro DECIMAL(10),
-Unidade INTEGER,
-Valor DECIMAL(10),
-FOREIGN KEY(CompraId) REFERENCES Compras (CompraId)
-)
-
 CREATE TABLE Fornecedores (
 FornecedorId INTEGER PRIMARY KEY,
 Endereco VARCHAR(100),
@@ -95,15 +93,6 @@ Telefone VARCHAR(16),
 Fornecedor VARCHAR(150),
 CNPJ VARCHAR(18),
 Ativo INTEGER
-)
-
-CREATE TABLE ProdutosOrdens (
-ProdutoOrdemId INTEGER PRIMARY KEY,
-OrdemServicoId INTEGER,
-ProdutoId INTEGER,
-Motivo VARCHAR(150),
-DataHora DATETIME,
-FOREIGN KEY(OrdemServicoId) REFERENCES OrdemServicos (OrdemServicoId)
 )
 
 CREATE TABLE Produtos (
@@ -132,13 +121,24 @@ Tipo VARCHAR(10),
 Ativo INTEGER
 )
 
-ALTER TABLE UsuarioPermissoes ADD FOREIGN KEY(PermissaoId) REFERENCES Permissoes (PermissaoId)
-ALTER TABLE UsuarioPermissoes ADD FOREIGN KEY(TipoUsuarioId) REFERENCES TipoUsuarios (TipoUsuarioId)
-ALTER TABLE Usuarios ADD FOREIGN KEY(EmpresaId) REFERENCES Empresas (EmpresaId)
-ALTER TABLE OrdemServicos ADD FOREIGN KEY(TipoOrdemServicoId) REFERENCES TipoOrdemServicos (TipoOrdemServicoId)
-ALTER TABLE Compras ADD FOREIGN KEY(FornecedorId) REFERENCES Fornecedores (FornecedorId)
-ALTER TABLE CompraProdutos ADD FOREIGN KEY(ProdutoId) REFERENCES Produtos (ProdutoId)
+CREATE TABLE OrdemServicos (
+OrdemServicoId INTEGER PRIMARY KEY,
+TipoOrdemServicoId INTEGER,
+UsuarioId INTEGER,
+Descricao VARCHAR(250),
+Cliente VARCHAR(150),
+Status INTEGER,
+FOREIGN KEY(TipoOrdemServicoId) REFERENCES TipoOrdemServicos (TipoOrdemServicoId),
+FOREIGN KEY(UsuarioId) REFERENCES Usuarios (UsuarioId)
+)
+
+ALTER TABLE ProdutosOrdens ADD FOREIGN KEY(OrdemServicoId) REFERENCES OrdemServicos (OrdemServicoId)
 ALTER TABLE ProdutosOrdens ADD FOREIGN KEY(ProdutoId) REFERENCES Produtos (ProdutoId)
+ALTER TABLE UsuarioPermissoes ADD FOREIGN KEY(TipoUsuarioId) REFERENCES TipoUsuarios (TipoUsuarioId)
+ALTER TABLE LogOrdens ADD FOREIGN KEY(OrdemServicoId) REFERENCES OrdemServicos (OrdemServicoId)
+ALTER TABLE CompraProdutos ADD FOREIGN KEY(CompraId) REFERENCES Compras (CompraId)
+ALTER TABLE CompraProdutos ADD FOREIGN KEY(ProdutoId) REFERENCES Produtos (ProdutoId)
+ALTER TABLE Compras ADD FOREIGN KEY(FornecedorId) REFERENCES Fornecedores (FornecedorId)
 ALTER TABLE Produtos ADD FOREIGN KEY(PrateleiraId) REFERENCES Prateleiras (PrateleiraId)
 ALTER TABLE Prateleiras ADD FOREIGN KEY(CategoriaId) REFERENCES Categorias (CategoriaId)
 ALTER TABLE Categorias ADD FOREIGN KEY(TipoProdutoId) REFERENCES TipoProdutos (TipoProdutoId)
