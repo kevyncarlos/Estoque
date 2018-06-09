@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using App.Models;
+using App.Services;
+using App.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,11 +24,11 @@ namespace App
         // Método ConfigureServices para adicionar serviços ao container da aplicação
         public void ConfigureServices(IServiceCollection services)
         {
-            //#region Contexto do banco de dados
-            ////Adição do serviço de banco de dados
-            //services.AddDbContextPool<a>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("Conn")));
-            //#endregion
+            #region Contexto do banco de dados
+            //Adição do serviço de banco de dados
+            services.AddDbContextPool<AppDBContext>(options =>
+                options.UseInMemoryDatabase(Configuration.GetConnectionString("Conn")));
+            #endregion
 
             #region Configução de autenticação por cookie criptografado
             //Adição e configuração do serviço de autenticação por cookie
@@ -42,6 +45,7 @@ namespace App
             #region Injeções de Dependência
             //Injeções de dependências para uso na aplicação
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUser, User>();
             #endregion
 
             //Adiciona a estrutura MVC na aplicação

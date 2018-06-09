@@ -1,13 +1,12 @@
 ﻿PNotify.defaults.styling = "bootstrap4";
 PNotify.defaults.icons = "fontawesome4";
+PNotify.defaults.delay = 4000
 
 window.FuncoesIniciais = function () {
     // Bootstrap Datepicker
     if (typeof ($.fn.datepicker) != 'undefined') {
         $.fn.bootstrapDP = $.fn.datepicker.noConflict();
     }
-
-    
 
     $(".datetime").datetimepicker({
         locale: "pt-br"
