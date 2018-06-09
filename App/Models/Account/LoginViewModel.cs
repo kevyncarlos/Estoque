@@ -24,6 +24,7 @@ namespace App.Models.Account
             _context = context;
         }
 
+        //Verificação das informações digitadas para saber se os dados conferem com os salvos no banco
         public bool IsValid()
         {
             if (_context == null)
@@ -31,6 +32,7 @@ namespace App.Models.Account
             return _context.Usuarios.Any(c => c.Matricula.Equals(Registry) && c.Senha.Equals(Password.MD5Encrypt()));
         }
 
+        //Retorno do usuário do banco de acordo com os dados digitados
         public Usuarios ToUsuario()
         {
             return _context.Usuarios.FirstOrDefault(c => c.Matricula.Equals(Registry) && c.Senha.Equals(Password.MD5Encrypt()));

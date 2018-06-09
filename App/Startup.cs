@@ -42,9 +42,11 @@ namespace App
                 });
             #endregion
 
-            #region Injeções de Dependência
             //Injeções de dependências para uso na aplicação
+            #region Injeções de Dependência
+            //Serviço usado para acessar a contexto da requisição http em models e classes
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //Serviço usado para acessar os dados do usuário logado em qualquer camada da aplicação
             services.AddScoped<IUser, User>();
             #endregion
 

@@ -29,12 +29,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            //Verificação da consistência dos dados
             if (ModelState.IsValid)
             {
+                //Inicialização da viewmodel com o contexto de banco de dados
                 model.Init(_context);
 
+                //Validando se os dados digitados são válidos
                 if (model.IsValid())
                 {
+                    //Realização do login do usuário
                     await Authenticate.Login(model.ToUsuario(), HttpContext);
                 }
             }
@@ -45,6 +49,7 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            //Logout do usuário
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return View();

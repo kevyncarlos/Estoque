@@ -9,6 +9,7 @@ namespace App.Models
 {
     public class AppDBContext : DbContext
     {
+        //Realização do set das classes para serem acessível pelo contexto nas demais camadas da aplicação
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<TipoUsuarios> TipoUsuarios { get; set; }
         public virtual DbSet<UsuarioPermissoes> UsuarioPermissoes { get; set; }
@@ -28,6 +29,7 @@ namespace App.Models
 
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
+        //Mapeamento e especificações das propriedades das models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuarios>(builder => 
