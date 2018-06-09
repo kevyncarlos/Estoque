@@ -14,6 +14,7 @@ namespace App.Services
     {
         public static async Task Login(Usuarios Usuario, HttpContext HttpContext)
         {
+            //Lista contendo as informações do usuário acessíveis a aplicação
             var claims = new List<Claim>
             {
                 new Claim("Id", Usuario.UsuarioId.ToString()),
@@ -24,21 +25,10 @@ namespace App.Services
                 new Claim("Empresa", Usuario.EmpresaId.ToString())
             };
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            //Propriedades de configuração do login
-            var authProperties = new AuthenticationProperties
-            {
-                //Tempo para expirar o login
-                ExpiresUtc = DateTime.UtcNow.AddMinutes(60),
-                AllowRefresh = true
-            };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             //Efetivação do login do usuário
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), authProperties);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
     }
 }

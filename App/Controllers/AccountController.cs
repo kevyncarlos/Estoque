@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using App.Models;
 using App.Models.Account;
 using App.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
@@ -41,15 +43,17 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             return View();
         }
 
         [HttpGet]
         public IActionResult Denied()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
